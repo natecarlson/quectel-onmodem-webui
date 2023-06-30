@@ -128,10 +128,10 @@ class CarrierAggregationCommand(Command):
                     logging.warning(f"Unknown technology in band: {band}")
                     technology = "Unknown"
 
-                self.results.append(ResultValue(f"Connection Type", "Connection Type", "PCC is primary, SCC is seconday", conntype))
-                self.results.append(ResultValue(f"{technology} EARFCN", "earfcn", "E-UTRA Absolute Radio Frequency Channel Number", earfcn))
-                self.results.append(ResultValue(f"{technology} Bandwidth", "Bandwidth", "Bandwidth", decoded_bandwidth))
-                self.results.append(ResultValue(f"{technology} Band", "Band", "Band tech and number", band))
+                self.results.append(ResultValue(f"{technology}_conntype", f"{technology} Connection Type", "PCC is primary, SCC is seconday", conntype))
+                self.results.append(ResultValue(f"{technology}_earfcn", f"{technology} EARFCN", "E-UTRA Absolute Radio Frequency Channel Number", earfcn))
+                self.results.append(ResultValue(f"{technology}_bandwidth", f"{technology} Bandwidth", "Bandwidth", decoded_bandwidth))
+                self.results.append(ResultValue(f"{technology}_band", f"{technology} Band", "Band tech and number", band))
 
             if len(qcainfo_matches.groups()) >= 5:
                 qca_params = qcainfo_matches.group(5).split(",")
