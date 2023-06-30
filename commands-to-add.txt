@@ -1,0 +1,78 @@
+Docs:
+network_application_note = Quectel_RG520N&RG52xF&RG530F&RM520N&RM520F&RM530N_Series_Network_Application_Note_V1.0.0_Preliminary_20220819.pdf
+network_status = /home/nc/Documents/tech-info/quectel-docs/Quectel_RG520N&RG52xF&RG530F&RM520N&RM530N_Series_5G_Network_Status_Judgement_Introduction_V1.1.0_Preliminary_20220929.pdf
+
+
+
+AT+COPS?
+  +COPS: 0,0,"T-Mobile",13
+  Returns the status, network, and connection type.
+  Docs: network_application_note pp 11-13
+
+AT+CREG?
+  network_application_note pp 13-14
+
+AT+C5GREG?
+  5g registration
+  network_application_note pp 18-19
+
+AT+QNWINFO worth it?
+
+at+qeng="neighbourcell"
+  network_application_note pp 23-27
+
+at+Qendc
+  EN-DC stuff
+  network_application_note pp 30-3?
+
+at+qscan - only when requested
+
+at+csq
+
+at+qcsq
+  network_application_note, pp 36-37
+  -- can we support unsolicited responses?
+
+  at+qsinr?
+
+AT+CGDCONT?
+  network_application_note, pp43-47 -- apn
+
+AT+QNETRC -- rejection cause
+  network_application_note, pp54-58
+
+AT+QGPAPN -- active APNs
+  network_application_note, pp66-67
+
+
+AT+QNWLOCK -- locking
+
+AT+QNWCFG -- query lots of crap
+
+at+qnwcfg="up/down" -- average upload and download speed in bits/s
+
+AT+QNWCFG="lte_ambr" -- maximum bit rate for lte in kbit/s
+AT+QNWCFG="nr5g_ambr" - for 5G
+
+AT+QNWCFG="data_roaming"
+
+AT+QNWCFG="nr5g_earfcn_lock"
+
+AT+QNWCFG="lte_earfcn_lock"
+
+AT+QNWCFG="nr5g_pref_freq_list"
+
+AT+QNWCFG="rrc_state" -- real connection status?
+
+AT+QNWCFG="ul_data_path" -- upload data path
+
+AT+QNWCFG="lte_mimo_layers"
+
+AT+QNWCFG="lte_band_priority"
+
+AT+QNWPREFCFG
+
+
+AT+QNWPREFCFG="ue_usage_setting" -- 1=data centric
+
+AT+QNWPREFCFG="rat_acq_order",NR5G:LTE
