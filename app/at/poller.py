@@ -5,7 +5,6 @@ import serial
 import io
 import importlib
 import inspect
-import statsd
 from .command import Command
 
 logger = logging.getLogger(__name__)
@@ -19,6 +18,9 @@ class Poller:
         """
         Create a new poller.
         """
+
+        if statsd_config:
+            import statsd
 
         # The AT serial device file
         self.dev = dev
@@ -149,4 +151,4 @@ class Poller:
 
         except Exception as poll_ex:
             logger.error('Error polling AT interface %s: %s' % (self.dev, poll_ex))
-            raise poll_ex
+            raise # poll_ex

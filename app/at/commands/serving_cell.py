@@ -2,6 +2,7 @@ import time
 import re
 import logging
 from ..command import Command, ResultValue, ResultValueState
+from .helper_functions import decode_nr5g_bandwidth, decode_lte_bandwidth
 
 logger = logging.getLogger(__name__)
 
@@ -73,7 +74,7 @@ class ServingCellCommand(Command):
                     self.results.append(ResultValue("nr_sa_arfcn", "5GNR-SA Cell ARFCN", "5G SA ARFCN", nr_params[6]))
                     self.results.append(ResultValue("nr_sa_band", "5GNR-SA Band", "5G SA Band", nr_params[7]))
                     # Add lookup table, per docs.
-                    self.results.append(ResultValue("nr_dl_bandwidth", "5GNR-SA Download Bandwidth", "5G SA Download Bandwidth", nr_params[8]))
+                    self.results.append(ResultValue("nr_dl_bandwidth", "5GNR-SA Download Bandwidth", "5G SA Download Bandwidth", decode_nr5g_bandwidth(nr_params[8])))
                     self.results.append(ResultValue("nr_sa_rsrp", "5GNR-SA RSRP", "5G Signal Power (dBmW)", nr_params[9]))
                     self.results.append(ResultValue("nr_sa_rsrq", "5GNR-SA RSRQ", "5G Signal Quality (dBmW)", nr_params[10]))
                     self.results.append(ResultValue("nr_sa_sinr", "5GNR-SA SINR", "5G Signal:Noise+Intrf. Ratio", nr_params[11]))
@@ -93,11 +94,11 @@ class ServingCellCommand(Command):
                     self.results.append(ResultValue("nr_nsa_rsrp", "5GNR-NSA RSRP", "5G Signal Power (dBmW)", nr_params[3]))
                     self.results.append(ResultValue("nr_nsa_sinr", "5GNR-NSA SINR", "5G Signal:Noise+Intrf. Ratio", nr_params[4]))
                     self.results.append(ResultValue("nr_nsa_rsrq", "5GNR-NSA RSRQ", "5G Signal Quality (dBmW)", nr_params[5]))
-                    self.results.append(ResultValue("nr_sa_arfcn", "5GNR-SA Cell ARFCN", "5G SA ARFCN", nr_params[6]))
-                    self.results.append(ResultValue("nr_sa_band", "5GNR-SA Band", "5G SA Band", nr_params[7]))
+                    self.results.append(ResultValue("nr_sa_arfcn", "5GNR-NSA Cell ARFCN", "5G SA ARFCN", nr_params[6]))
+                    self.results.append(ResultValue("nr_sa_band", "5GNR-NSA Band", "5G SA Band", nr_params[7]))
                     # Add lookup table, per docs.
-                    self.results.append(ResultValue("nr_dl_bandwidth", "5GNR-SA Download Bandwidth", "5G SA Download Bandwidth", nr_params[8]))
-                    self.results.append(ResultValue("nr_sa_scs", "5GNR-SA SCS", "5G NR Sub-Carrier Space", nr_params[9]))
+                    self.results.append(ResultValue("nr_dl_bandwidth", "5GNR-NSA Download Bandwidth", "5G SA Download Bandwidth", decode_nr5g_bandwidth(nr_params[8])))
+                    self.results.append(ResultValue("nr_sa_scs", "5GNR-NSA SCS", "5G NR Sub-Carrier Space", nr_params[9]))
 
             elif tech_matches.group(1) == 'LTE':
                 # Process LTE group
@@ -111,8 +112,8 @@ class ServingCellCommand(Command):
                     self.results.append(ResultValue("lte_pcid", "LTE PhyCell ID", "LTE Physical Cell ID", lte_params[4]))
                     self.results.append(ResultValue("lte_earfcn", "LTE EARFCN", "LTE E-UTRA Absolute Radio Frequency Channel Number", lte_params[5]))
                     self.results.append(ResultValue("lte_freq_band_ind", "LTE Freq. Band Index", "LTE Frequency Band Index", lte_params[6]))
-                    self.results.append(ResultValue("lte_ul_bw", "LTE Upstream BW", "LTE Upstream Bandwidth", lte_params[7]))
-                    self.results.append(ResultValue("lte_dl_bw", "LTE Downstream BW", "LTE Downstream Bandwidth", lte_params[8]))
+                    self.results.append(ResultValue("lte_ul_bw", "LTE Upstream BW", "LTE Upstream Bandwidth", decode_lte_bandwidth(lte_params[7])))
+                    self.results.append(ResultValue("lte_dl_bw", "LTE Downstream BW", "LTE Downstream Bandwidth", decode_lte_bandwidth(lte_params[8])))
                     self.results.append(ResultValue("lte_tac", "LTE TAC", "LTE Tracking Area Code", lte_params[9]))
                     self.results.append(ResultValue("lte_rsrp", "LTE RSRP", "LTE Signal Power (dBmW)", lte_params[10]))
                     self.results.append(ResultValue("lte_rsrq", "LTE RSRQ", "LTE Signal Quality (dB)", lte_params[11]))
