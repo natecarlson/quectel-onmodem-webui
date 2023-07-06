@@ -26,7 +26,7 @@ logger.addHandler(stdout_handler)
 node_modules_path = os.path.join(os.path.dirname(__file__), 'webserver', 'static', 'node_modules')
 if not os.path.exists(node_modules_path):
     logging.error("The node_modules directory does not exist. Please run 'npm install' in the webserver/static directory.")
-    exit(1)
+    sys.exit(1)
 
 # Read configuration
 config_path = os.path.dirname(__file__) + '/config.yml'
